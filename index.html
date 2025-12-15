@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>加密算法演示系统</title>
+    <link rel="stylesheet" href="css/style.css">
+    </head>
+<body>
+
+    <div id="auth-overlay" class="auth-overlay">
+        <div class="auth-container">
+            <div id="login-form-container">
+                <h2>登录</h2>
+                <form id="login-form">
+                    <input type="text" id="login-username" placeholder="用户名" required>
+                    <input type="password" id="login-password" placeholder="密码" required>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">登录</button>
+                    <p>还没有账户? <a href="#" id="show-register">立即注册</a></p>
+                </form>
+            </div>
+            <div id="register-form-container" style="display: none;">
+                <h2>注册</h2>
+                <form id="register-form">
+                    <input type="text" id="register-username" placeholder="用户名" required>
+                    <input type="password" id="register-password" placeholder="密码" required>
+                    <input type="password" id="register-confirm-password" placeholder="确认密码" required>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">注册</button>
+                    <p>已有账户? <a href="#" id="show-login">返回登录</a></p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="app-container" class="app-container hidden">
+        <header class="app-header">
+            <h1>加密算法演示系统</h1>
+            <div class="header-controls">
+                <span id="welcome-message"></span>
+                <button id="admin-panel-btn" class="btn btn-secondary hidden">用户管理</button>
+                <button id="logout-btn" class="btn btn-secondary">安全退出</button>
+                <button id="theme-toggle-btn" class="btn btn-secondary">切换模式</button>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <nav id="sidebar" class="sidebar">
+                <h2>算法列表</h2>
+                <ul>
+                    <li><a href="#" data-algo="caesar">凯撒密码 (Caesar)</a></li>
+                    <li><a href="#" data-algo="onetimepad">一次性密码本 (OTP)</a></li>
+                    <li><a href="#" data-algo="playfair">Playfair 密码</a></li>
+                    <li><a href="#" data-algo="stream">流密码 (RC4-XOR)</a></li>
+                    <li><a href="#" data-algo="des">DES 算法</a></li>
+                    <li><a href="#" data-algo="aes">AES 算法</a></li>
+                    <li><a href="#" data-algo="vcs">视觉密码 (Visual Crypto)</a></li>
+                </ul>
+            </nav>
+
+            <main id="main-display" class="main-display">
+                <div id="welcome-screen" class="content-section">
+                    <h2>欢迎使用加密算法演示系统</h2>
+                    <p>请从左侧菜单中选择一个算法开始探索。</p>
+                    <p>本项目是一个纯前端实现的加密教学工具，所有计算和数据存储均在您的浏览器中完成。</p>
+                </div>
+                </main>
+        </div>
+    </div>
+    
+    <div id="admin-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>管理员后台 - 用户管理</h2>
+            <div class="admin-toolbar">
+                <input type="search" id="user-search-input" placeholder="按用户名搜索...">
+            </div>
+            <div class="table-container">
+                <table id="user-management-table">
+                    <thead>
+                        <tr>
+                            <th>用户名</th>
+                            <th>权限</th>
+                            <th>密码原文 (仅演示用)</th> <th class="password-hash-col">加盐哈希值 (SHA-256)</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        </tbody>
+                </table>
+            </div>
+            <p class="security-note">注：系统仅存储密码的加盐哈希值，无法还原为原始密码。</p>
+        </div>
+    </div>
+
+    <script>
+        window.algorithms = {};
+    </script>
+    <script src="js/utils.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/theme.js"></script>
+
+    <script src="js/algorithms/caesar.js"></script>
+    <script src="js/algorithms/onetimepad.js"></script>
+    <script src="js/algorithms/playfair.js"></script>
+    <script src="js/algorithms/stream.js"></script>
+    <script src="js/algorithms/des.js"></script>
+    <script src="js/algorithms/aes.js"></script>
+    <script src="js/algorithms/vcs.js"></script>
+    
+    <script src="js/main.js"></script>
+</body>
+</html>

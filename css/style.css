@@ -1,0 +1,160 @@
+/* css/style.css */
+
+/* --- 全局变量和基础样式 --- */
+:root {
+    --primary-color: #0d6efd;
+    --primary-color-dark: #3b82f6;
+    --secondary-color: #6c757d;
+    --success-color: #198754;
+    --error-color: #dc3545;
+    --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --monospace-font: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    --transition-speed: 0.2s;
+    
+    /* Light Mode */
+    --bg-light: #f8f9fa;
+    --text-light: #212529;
+    --card-bg-light: #ffffff;
+    --border-light: #dee2e6;
+    --input-bg-light: #fff;
+    --input-disabled-bg-light: #e9ecef;
+    --header-bg-light: rgba(255, 255, 255, 0.8);
+
+    /* Dark Mode */
+    --bg-dark: #0b1120;
+    --text-dark: #ced4da;
+    --card-bg-dark: #1c2333;
+    --border-dark: #495057;
+    --input-bg-dark: #2a3140;
+    --input-disabled-bg-dark: #212836;
+    --header-bg-dark: rgba(28, 35, 51, 0.8);
+}
+
+body {
+    font-family: var(--font-family);
+    margin: 0;
+    transition: background-color var(--transition-speed), color var(--transition-speed);
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+body.light-mode {
+    background-color: var(--bg-light);
+    color: var(--text-light);
+    --current-bg: var(--bg-light);
+    --current-text: var(--text-light);
+    --current-card-bg: var(--card-bg-light);
+    --current-border: var(--border-light);
+    --current-input-bg: var(--input-bg-light);
+    --current-input-disabled-bg: var(--input-disabled-bg-light);
+    --current-header-bg: var(--header-bg-light);
+    --current-primary: var(--primary-color);
+}
+
+body.dark-mode {
+    background-color: var(--bg-dark);
+    color: var(--text-dark);
+    --current-bg: var(--bg-dark);
+    --current-text: var(--text-dark);
+    --current-card-bg: var(--card-bg-dark);
+    --current-border: var(--border-dark);
+    --current-input-bg: var(--input-bg-dark);
+    --current-input-disabled-bg: var(--input-disabled-bg-dark);
+    --current-header-bg: var(--header-bg-dark);
+    --current-primary: var(--primary-color-dark);
+}
+
+.hidden { display: none !important; }
+
+/* --- 登录/注册 --- */
+.auth-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); display: flex; justify-content: center; align-items: center; z-index: 1000; }
+.auth-container { background-color: var(--current-card-bg); padding: 2rem; border-radius: 8px; width: 320px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+.auth-container h2 { text-align: center; margin-bottom: 1.5rem; color: var(--current-primary); }
+.auth-container form input { width: 100%; padding: 10px; margin-bottom: 1rem; border: 1px solid var(--current-border); border-radius: 6px; box-sizing: border-box; background-color: var(--current-input-bg); color: var(--current-text); }
+.auth-container p { text-align: center; margin-top: 1rem; font-size: 0.9rem; }
+.auth-container p a { color: var(--current-primary); text-decoration: none; cursor: pointer; }
+.auth-container p a:hover { text-decoration: underline; }
+
+/* --- 通用组件 --- */
+.btn { display: inline-block; font-weight: 500; text-align: center; vertical-align: middle; cursor: pointer; user-select: none; background-color: transparent; border: 1px solid transparent; padding: 0.5rem 1rem; font-size: 1rem; border-radius: 0.375rem; transition: all var(--transition-speed) ease-in-out; }
+.btn-primary { color: #fff; background-color: var(--current-primary); border-color: var(--current-primary); }
+.btn-primary:hover { filter: brightness(1.1); }
+.btn-secondary { color: var(--current-primary); background-color: transparent; border-color: var(--current-primary); }
+.btn-secondary:hover { color: #fff; background-color: var(--current-primary); }
+.btn-xs { padding: 2px 8px; font-size: 0.75rem; line-height: 1.5; border-radius: 4px; margin-left: 8px; vertical-align: middle; }
+
+/* --- 主应用布局 --- */
+.app-container { display: flex; flex-direction: column; height: 100vh; }
+.app-header { display: flex; justify-content: space-between; align-items: center; padding: 0 2rem; box-shadow: 0 2px 4px rgba(0,0,0,0.1); height: 60px; background-color: var(--current-header-bg); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 500; border-bottom: 1px solid var(--current-border); }
+.app-header h1 { font-size: 1.5rem; color: var(--current-primary); }
+.header-controls { display: flex; align-items: center; gap: 10px; }
+.main-content { display: flex; flex-grow: 1; overflow: hidden; }
+.sidebar { width: 250px; flex-shrink: 0; padding: 1rem; overflow-y: auto; background-color: var(--current-card-bg); border-right: 1px solid var(--current-border); }
+.sidebar h2 { font-size: 1.2rem; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--current-border); }
+.sidebar ul { list-style: none; padding: 0; margin: 0; }
+.sidebar ul li a { display: block; padding: 10px 15px; text-decoration: none; border-radius: 6px; margin-bottom: 5px; color: var(--current-text); transition: background-color var(--transition-speed), color var(--transition-speed); }
+.sidebar ul li a:hover { background-color: rgba(13, 110, 253, 0.1); }
+.sidebar ul li a.active { background-color: var(--current-primary); color: white; }
+.main-display { flex-grow: 1; padding: 2rem; overflow-y: auto; }
+
+/* --- 算法展示区 --- */
+.content-section { max-width: 900px; margin: 0 auto; }
+.content-section h2 { color: var(--current-primary); }
+.content-section h3 { margin-top: 2rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--current-border); }
+.operation-panel { background-color: var(--current-card-bg); border: 1px solid var(--current-border); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+
+/* Form Group 样式 (输入框和结果框公用) */
+.form-group { margin-bottom: 1rem; }
+.form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+.form-group input, .form-group textarea, .form-group select { background-color: var(--current-input-bg); border: 1px solid var(--current-border); color: var(--current-text); border-radius: 6px; padding: 10px; width: 100%; box-sizing: border-box; font-family: var(--monospace-font); font-size: 1rem; transition: border-color var(--transition-speed), box-shadow var(--transition-speed); }
+.form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: var(--current-primary); box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.25); }
+textarea { resize: vertical; min-height: 100px; }
+
+/* 结果区域的特殊包装 (用于定位复制按钮) */
+.textarea-wrapper { position: relative; }
+.textarea-wrapper .copy-btn { position: absolute; top: 8px; right: 8px; background: var(--current-card-bg); border: 1px solid var(--current-border); border-radius: 5px; cursor: pointer; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; color: var(--secondary-color); transition: all var(--transition-speed); }
+.textarea-wrapper .copy-btn:hover { color: var(--current-primary); border-color: var(--current-primary); transform: scale(1.1); }
+
+.algo-options { display: flex; gap: 20px; flex-wrap: wrap; align-items: center; margin-bottom: 1rem; }
+
+/* --- 可视化区域 --- */
+.visualization-area { margin-top: 1.5rem; padding: 1.5rem; border-radius: 8px; background-color: var(--current-card-bg); border: 1px solid var(--current-border); }
+.visualization-area h4 { margin-top: 0; }
+.matrix-container, .state-matrix { font-family: var(--monospace-font); display: grid; grid-template-columns: repeat(5, 35px); gap: 5px; justify-content: center; margin: 1rem 0; }
+.aes .state-matrix { grid-template-columns: repeat(4, 40px); }
+.matrix-cell, .state-cell { width: 35px; height: 35px; display: flex; justify-content: center; align-items: center; border: 1px solid var(--current-border); border-radius: 4px; background-color: var(--current-input-bg); }
+.aes .state-cell { width: 40px; height: 40px; }
+
+/* --- 管理员面板 --- */
+.modal { display: none; position: fixed; z-index: 1001; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.6); }
+.modal-content { background-color: var(--current-card-bg); margin: 5% auto; padding: 20px; border-radius: 8px; width: 90%; max-width: 1000px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+.close-btn { float: right; font-size: 28px; font-weight: bold; cursor: pointer; }
+.admin-toolbar { margin-bottom: 1rem; }
+.admin-toolbar input[type="search"] { width: 100%; padding: 10px; border-radius: 6px; border: 1px solid var(--current-border); background-color: var(--current-input-bg); color: var(--current-text); }
+.table-container { max-height: 60vh; overflow-y: auto; }
+#user-management-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+#user-management-table th, #user-management-table td { border: 1px solid var(--current-border); padding: 12px; text-align: left; vertical-align: middle; }
+.light-mode #user-management-table th { background-color: #f2f2f2; }
+.dark-mode #user-management-table th { background-color: #333; }
+.password-hash-col { font-family: var(--monospace-font); font-size: 0.8rem; word-break: break-all; min-width: 200px; line-height: 1.4; }
+.password-hash-col span { display: inline; }
+.security-note { font-size: 0.8rem; color: var(--secondary-color); margin-top: 1rem; text-align: center; }
+
+/* --- 算法介绍 (Markdown) --- */
+.algo-details { line-height: 1.7; }
+.algo-details h3, .algo-details h4 { margin-top: 2rem; border-bottom: 1px solid var(--current-border); padding-bottom: 0.5rem; }
+.algo-details code { background-color: var(--current-input-disabled-bg); padding: 0.2em 0.4em; margin: 0; font-size: 85%; border-radius: 6px; font-family: var(--monospace-font); }
+.algo-details pre { background-color: var(--current-input-disabled-bg); padding: 1rem; border-radius: 6px; overflow-x: auto; }
+.algo-details pre code { background: none; padding: 0; }
+.algo-details blockquote { border-left: 4px solid var(--current-border); padding-left: 1rem; margin-left: 0; color: var(--secondary-color); }
+.algo-details table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+.algo-details th, .algo-details td { border: 1px solid var(--current-border); padding: 8px; }
+.algo-details th { background-color: var(--current-input-disabled-bg); }
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .main-content { flex-direction: column; }
+    .sidebar { width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--current-border); }
+    .app-header { flex-direction: column; height: auto; padding: 1rem; }
+    .header-controls { margin-top: 1rem; }
+}
