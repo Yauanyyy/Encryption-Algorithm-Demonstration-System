@@ -119,12 +119,12 @@ window.algorithms.playfair = (() => {
                 <h3>加解密操作台</h3>
                 <div class="operation-panel">
                     <div class="form-group">
-                        <label for="playfair-key">密钥 (Keyword, 仅限英文字母)</label>
-                        <input type="text" id="playfair-key" placeholder="例如: MONARCHY">
-                    </div>
-                    <div class="form-group">
                         <label for="playfair-input">输入文本 (仅限英文字母和空格, J会被替换为I)</label>
                         <textarea id="playfair-input" placeholder="例如: HIDE THE GOLD IN THE TREE STUMP"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="playfair-key">密钥 (Keyword, 仅限英文字母)</label>
+                        <input type="text" id="playfair-key" placeholder="例如: MONARCHY">
                     </div>
                     <div class="form-group">
                         <label for="playfair-mode">模式</label>

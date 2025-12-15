@@ -89,6 +89,10 @@ window.algorithms.stream = (() => {
                 <h3>加解密操作台</h3>
                 <div class="operation-panel">
                     <div class="form-group">
+                        <label for="stream-input">输入</label>
+                        <textarea id="stream-input" placeholder="输入文本进行加密, 或输入十六进制字符串进行解密..."></textarea>
+                    </div>
+                    <div class="form-group">
                         <label for="stream-key">密钥 (任意长度)</label>
                         <input type="text" id="stream-key" placeholder="Enter secret key">
                     </div>
@@ -99,10 +103,7 @@ window.algorithms.stream = (() => {
                             <option value="decrypt">解密 (输入: 十六进制)</option>
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label for="stream-input">输入</label>
-                        <textarea id="stream-input" placeholder="输入文本进行加密, 或输入十六进制字符串进行解密..."></textarea>
-                    </div>
+                    
                     <button id="stream-execute" class="btn btn-primary" style="margin-bottom: 1.5rem;">执行</button>
                     
                     <div class="form-group">

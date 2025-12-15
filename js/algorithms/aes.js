@@ -188,13 +188,7 @@ window.algorithms.aes = (() => {
 
                 <h3>加解密操作台</h3>
                 <div class="operation-panel">
-                    <div class="form-group">
-                        <label for="aes-mode">模式</label>
-                        <select id="aes-mode">
-                            <option value="encrypt">加密</option>
-                            <option value="decrypt">解密</option>
-                        </select>
-                    </div>
+                    
                     <div class="form-group">
                         <label for="aes-input">数据块 (32个十六进制字符, 128位)</label>
                         <input type="text" id="aes-input" maxlength="32" placeholder="e.g., 00112233445566778899AABBCCDDEEFF">
@@ -202,6 +196,13 @@ window.algorithms.aes = (() => {
                     <div class="form-group">
                         <label for="aes-key">密钥 (64个十六进制字符, 256位)</label>
                         <input type="text" id="aes-key" maxlength="64" placeholder="e.g., 000102030405060708090A0B0C0D0E0F101112131415161718191A1B1C1D1E1F">
+                    </div>
+                    <div class="form-group">
+                        <label for="aes-mode">模式</label>
+                        <select id="aes-mode">
+                            <option value="encrypt">加密</option>
+                            <option value="decrypt">解密</option>
+                        </select>
                     </div>
                     <button id="aes-execute" class="btn btn-primary" style="margin-bottom: 1.5rem;">执行</button>
                     
