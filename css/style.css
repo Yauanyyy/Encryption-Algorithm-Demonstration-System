@@ -121,7 +121,7 @@ textarea { resize: vertical; min-height: 100px; }
 .visualization-area { margin-top: 1.5rem; padding: 1.5rem; border-radius: 8px; background-color: var(--current-card-bg); border: 1px solid var(--current-border); }
 .visualization-area h4 { margin-top: 0; }
 .matrix-container, .state-matrix { font-family: var(--monospace-font); display: grid; grid-template-columns: repeat(5, 35px); gap: 5px; justify-content: center; margin: 1rem 0; }
-.aes .state-matrix { grid-template-columns: repeat(4, 40px); }
+.state-matrix.aes { grid-template-columns: repeat(4, 40px); }
 .matrix-cell, .state-cell { width: 35px; height: 35px; display: flex; justify-content: center; align-items: center; border: 1px solid var(--current-border); border-radius: 4px; background-color: var(--current-input-bg); }
 .aes .state-cell { width: 40px; height: 40px; }
 

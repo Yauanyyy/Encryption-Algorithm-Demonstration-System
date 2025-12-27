@@ -43,6 +43,64 @@ const ALGO_CONTENT = {
         </div>
     `,
 
+    // --- MD5 ---
+    md5: `
+        <div class="algo-section">
+            <h3>历史背景</h3>
+            <p><strong>MD5</strong>（Message-Digest Algorithm 5）由 <strong>Ron Rivest</strong> 于 1991 年提出，并在 <strong>RFC 1321</strong> 中正式发布。它是对早期 MD4 的改进，曾经被广泛用于文件校验、完整性验证和简单的指纹标识。</p>
+        </div>
+
+        <div class="algo-section">
+            <h3>原理</h3>
+            <p>MD5 是一种基于 <strong>Merkle–Damgård</strong> 构造的<strong>分组摘要算法</strong>，输出固定长度为 <strong>128 位</strong>（16 字节）的哈希值。</p>
+            <ul>
+                <li><strong>输入划分：</strong> 以 512 位为一块进行处理。</li>
+                <li><strong>初始向量：</strong> 四个 32 位常量寄存器 <code>A,B,C,D</code>。</li>
+                <li><strong>四轮非线性函数：</strong> 每轮 16 步，共 64 步，使用函数 <code>F,G,H,I</code> 及循环左移与模 <code>2^32</code> 加法。</li>
+                <li><strong>小端序：</strong> MD5 以<strong>小端</strong>方式读写字（word）。</li>
+            </ul>
+        </div>
+
+        <div class="algo-section">
+            <h3>算法流程</h3>
+            <ol>
+                <li><strong>编码：</strong> 将输入按 UTF-8 编码为字节序列。</li>
+                <li><strong>填充：</strong> 先追加一个字节 <code>0x80</code>，再追加若干 <code>0x00</code> 使长度 ≡ 448 (mod 512)。</li>
+                <li><strong>附加长度：</strong> 在末尾追加原始消息长度（单位：比特）的 64 位小端表示。</li>
+                <li><strong>初始化：</strong> 设定寄存器 <code>A,B,C,D</code> 为固定常量。</li>
+                <li><strong>压缩：</strong> 逐块执行 64 步运算，使用 <code>F,G,H,I</code> 与常数表，更新 <code>A,B,C,D</code> 并与原寄存器相加（模 <code>2^32</code>）。</li>
+                <li><strong>输出：</strong> 连接 <code>A,B,C,D</code> 的小端序字节，得到 128 位摘要，以 32 位十六进制表示。</li>
+            </ol>
+        </div>
+
+        <div class="algo-section">
+            <h3>常用场景</h3>
+            <ul>
+                <li><strong>文件校验：</strong> 快速检测传输或存储过程中的非恶意损坏。</li>
+                <li><strong>指纹标识：</strong> 为数据生成短小固定长度标识。</li>
+            </ul>
+        </div>
+
+        <div class="algo-section">
+            <h3>安全性分析</h3>
+            <p>MD5 <strong>已不再安全</strong>。2004 年起相继出现碰撞攻击，后来更实现了<strong>选择前缀碰撞</strong>（Chosen-Prefix Collision）。因此：</p>
+            <ul>
+                <li><strong>不可用于密码学安全：</strong> 禁止用于数字签名、证书、完整性保护等安全场景。</li>
+                <li><strong>替代方案：</strong> 选择 <strong>SHA-256/512、SHA-3、BLAKE2/3</strong> 等现代摘要算法。</li>
+                <li><strong>口令存储：</strong> 请使用 <strong>bcrypt、scrypt、Argon2</strong> 等专用口令哈希算法。</li>
+            </ul>
+        </div>
+
+        <div class="algo-section">
+            <h3>测试向量</h3>
+            <ul style="font-family: var(--monospace-font);">
+                <li>"" → <code>d41d8cd98f00b204e9800998ecf8427e</code></li>
+                <li>"abc" → <code>900150983cd24fb0d6963f7d28e17f72</code></li>
+            </ul>
+            <p>这些向量可用于验证实现的正确性（本页面的演示已支持）。</p>
+        </div>
+    `,
+
     // --- 一次性密码本 (OTP) ---
     onetimepad: `
         <div class="algo-section">
@@ -211,7 +269,49 @@ const ALGO_CONTENT = {
             <p>AES 目前被认为是极度安全的。对于 128 位密钥，暴力破解需要尝试 3.4 x 10<sup>38</sup> 次，这在现有物理原理下几乎是不可能的。AES 是目前全球金融、政府和商业领域保护机密数据的首选标准。</p>
         </div>
     `,
+    rsa: `
+        <div class="algo-section">
+            <h3>历史背景</h3>
+            <p>RSA 算法由 Ron Rivest、Adi Shamir 和 Leonard Adleman 于 1977 年在麻省理工学院提出，是第一个既能用于数据加密也能用于数字签名的算法。它的安全性依赖于<strong>大整数质因数分解</strong>的困难性。</p>
+        </div>
 
+        <div class="algo-section">
+            <h3>原理</h3>
+            <p>RSA 属于<strong>非对称加密</strong>（公钥加密）。与对称加密不同，它使用两把不同的密钥：
+            <ul>
+                <li><strong>公钥 (Public Key)：</strong> 公开给所有人，用于<strong>加密</strong>消息。</li>
+                <li><strong>私钥 (Private Key)：</strong> 必须严格保密，用于<strong>解密</strong>消息。</li>
+            </ul>
+            </p>
+            <p>数学核心是<strong>欧拉定理</strong>和模幂运算。给定明文 $M$，密文 $C$ 的计算如下：
+            <br>加密：$C = M^e \\mod N$
+            <br>解密：$M = C^d \\mod N$
+            </p>
+        </div>
+
+        <div class="algo-section">
+            <h3>算法流程</h3>
+            <ol>
+                <li><strong>密钥生成：</strong>
+                    <ul>
+                        <li>随机选择两个大素数 $p$ 和 $q$。</li>
+                        <li>计算模数 $N = p \\times q$。</li>
+                        <li>计算欧拉函数 $\\phi(N) = (p-1)(q-1)$。</li>
+                        <li>选择一个公钥指数 $e$，满足 $1 < e < \\phi(N)$ 且 $\\gcd(e, \\phi(N)) = 1$。</li>
+                        <li>计算私钥指数 $d$，使得 $d \\times e \\equiv 1 (\\mod \\phi(N))$。</li>
+                        <li>公钥为 $(e, N)$，私钥为 $(d, N)$。</li>
+                    </ul>
+                </li>
+                <li><strong>加密：</strong> 将明文转换为数字 $M$ (需 $M < N$)，计算 $C = M^e \\mod N$。</li>
+                <li><strong>解密：</strong> 计算 $M = C^d \\mod N$。</li>
+            </ol>
+        </div>
+
+        <div class="algo-section">
+            <h3>安全性分析</h3>
+            <p>RSA 的安全性取决于 $N$ 的大小。如果攻击者能将 $N$ 分解为 $p$ 和 $q$，就能轻易算出私钥 $d$。目前的推荐标准是使用 2048 位或 3072 位的 $N$。在本演示中，为了展示计算过程，我们使用了非常小的素数，这在实际中是<strong>极不安全</strong>的。</p>
+        </div>
+    `,
     // --- 视觉密码 (VCS) ---
     vcs: `
         <div class="algo-section">
@@ -246,6 +346,21 @@ const ALGO_CONTENT = {
                 <li><strong>解密便捷：</strong> 物理叠加即可，无需复杂的密钥管理或计算设备。</li>
                 <li><strong>代价：</strong> 恢复出的图像会有<strong>对比度损失</strong>（白色区域变成了半透光的灰色），且图像尺寸会变大（因为进行了 2×2 的扩展）。</li>
             </ol>
+        </div>
+    `,
+    evcs: `
+        <div class="algo-section">
+            <h3>原理简介</h3>
+            <p>扩展视觉密码（Extended Visual Cryptography Scheme, EVCS）是为了解决传统视觉密码“分存图是无意义噪点”的问题而提出的。</p>
+            <p>在普通 VCS 中，分存图看起来像坏掉的电视雪花点，这容易引起怀疑。而 EVCS 通过精巧的像素扩展策略（通常使用 2x2 或更大的子像素块），使得每一张分存图在视觉上呈现出特定的“掩盖图像”（Cover Image）。</p>
+        </div>
+        <div class="algo-section">
+            <h3>实现逻辑</h3>
+            <p>本演示采用 (2, 2) 扩展方案。每个原始像素被扩展为 2x2 的子像素矩阵（共4个点）。</p>
+            <ul>
+                <li><strong>掩盖图显示：</strong> 利用子像素块中黑像素的密度（灰度）来模拟图像。白色区域使用 2 个黑点（较亮），黑色区域使用 3 个黑点（较暗）。</li>
+                <li><strong>秘密恢复：</strong> 当两张图叠加时，子像素的排列组合会发生变化。秘密信息的黑色区域会呈现 4 个黑点（全黑），而背景区域保持较亮的状态，从而显现出秘密信息。</li>
+            </ul>
         </div>
     `
 };
