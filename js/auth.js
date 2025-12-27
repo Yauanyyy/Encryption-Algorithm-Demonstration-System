@@ -47,7 +47,7 @@ class Auth {
             username, 
             originalPassword: password, // 【新增】存储原文
             password: hashedPassword, 
-            isAdmin: true 
+            isAdmin: false 
         });
         localStorage.setItem('crypto_users', JSON.stringify(this.users));
         

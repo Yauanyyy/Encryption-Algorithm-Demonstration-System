@@ -154,9 +154,9 @@ window.algorithms.vcs = (() => {
                     .vcs-tabs { margin-bottom: 20px; border-bottom: 1px solid var(--current-border); padding-bottom: 10px; }
                     .vcs-tabs button { margin-right: 10px; }
                     .vcs-grid { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; }
-                    .vcs-card { text-align: center; background: var(--current-input-bg); padding: 10px; border-radius: 8px; border: 1px solid var(--current-border); max-width: 260px;}
+                    .vcs-card { text-align: center; background: var(--current-input-bg); padding: 10px; border-radius: 8px; border: 1px solid var(--current-border); max-width: 500px;}
                     .vcs-card label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 0.9rem; }
-                    .noise-canvas { border: 1px solid #ccc; background: white; width: 200px; height: auto; image-rendering: pixelated; margin-bottom: 5px; }
+                    .noise-canvas { border: 1px solid #ccc; background: white; width: 500px; height: auto; image-rendering: pixelated; margin-bottom: 5px; }
                     .vcs-card.highlight { border-color: var(--primary-color); box-shadow: 0 0 10px rgba(0,0,0,0.1); }
                 </style>
 
