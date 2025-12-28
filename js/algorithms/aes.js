@@ -231,9 +231,8 @@ window.algorithms.aes = (() => {
             }
 
             document.getElementById('aes-mode').addEventListener('change', (e) => {
-                const outputLabel = document.getElementById('aes-output-label');
                 const isEncrypt = e.target.value === 'encrypt';
-                outputLabel.textContent = isEncrypt ? '结果 (十六进制)' : '结果 (文本)';
+                // 移除此处修改 outputLabel 的代码，使其保持默认的"结果 (十六进制)"
                 document.getElementById('aes-input').placeholder = isEncrypt ? '输入明文的十六进制' : '输入密文的十六进制';
             });
             
@@ -270,12 +269,8 @@ window.algorithms.aes = (() => {
                     document.getElementById('aes-output').value = resultBytes.map(b => b.toString(16).padStart(2, '0').toUpperCase()).join('');
                 } else {
                     ({ result: resultBytes, steps } = decrypt(textBytes, keyBytes));
-                    try {
-                        const decodedText = new TextDecoder('utf-8', { fatal: true }).decode(new Uint8Array(resultBytes));
-                        document.getElementById('aes-output').value = decodedText.replace(/\u0000+$/, '');
-                    } catch (e) {
-                        document.getElementById('aes-output').value = `(无法解码为文本) Hex: ${resultBytes.map(b => b.toString(16).padStart(2, '0').toUpperCase()).join('')}`;
-                    }
+                    // 修改：不再尝试 TextDecoder 解码，直接输出 Hex 字符串
+                    document.getElementById('aes-output').value = resultBytes.map(b => b.toString(16).padStart(2, '0').toUpperCase()).join('');
                 }
                 
                 document.getElementById('aes-steps').innerHTML = steps;
