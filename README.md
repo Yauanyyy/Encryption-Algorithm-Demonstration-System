@@ -1,5 +1,8 @@
 # 加密算法演示系统 (Encryption Algorithm Demonstration System)
 
+## 在线演示地址
+[点击这里访问演示系统](https://yauanyyy.github.io/Encryption-Algorithm-Demonstration-System/)
+
 ## 项目简介
 
 本项目是通信工程专业选修课的大作业成果。旨在设计并实现一个基于 Web 的**加密算法可视化教学演示系统**。
